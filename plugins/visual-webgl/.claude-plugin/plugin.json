@@ -1,0 +1,9 @@
+{
+  "name": "visual-webgl",
+  "version": "0.1.0",
+  "description": "WebGL・Canvas のビジュアル制作の手順",
+  "author": {
+    "name": "asamiile"
+  },
+  "keywords": ["webgl", "canvas"]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "asamiile",
+  "description": "これまでの制作で得た作業手順・ルール・知見をまとめたスキル集",
+  "owner": {
+    "name": "asamiile"
+  },
+  "plugins": [
+    {
+      "name": "core",
+      "source": "./plugins/core",
+      "description": "制作物の性質に関係なく使う手順"
+    },
+    {
+      "name": "visual-webgl",
+      "source": "./plugins/visual-webgl",
+      "description": "WebGL・Canvas のビジュアル制作の手順"
+    },
+    {
+      "name": "motion-graphics",
+      "source": "./plugins/motion-graphics",
+      "description": "Remotion などを使った動画制作の手順"
+    },
+    {
+      "name": "web-modern",
+      "source": "./plugins/web-modern",
+      "description": "モダン Web 開発の手順"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "core",
+  "version": "0.1.0",
+  "description": "制作物の性質に関係なく使う手順",
+  "author": {
+    "name": "asamiile"
+  },
+  "keywords": ["workflow"]
+}

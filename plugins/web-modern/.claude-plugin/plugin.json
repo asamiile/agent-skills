@@ -1,0 +1,9 @@
+{
+  "name": "web-modern",
+  "version": "0.1.0",
+  "description": "モダン Web 開発の手順",
+  "author": {
+    "name": "asamiile"
+  },
+  "keywords": ["web"]
+}
