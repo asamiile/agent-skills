@@ -1,6 +1,6 @@
 # agent-skills
 
-`asamiile`, a Claude Code plugin marketplace of workflows, rules, and lessons learned from visual, motion graphics, and web production work.
+A Claude Code plugin marketplace of workflows, rules, and lessons learned from visual, motion graphics, and web production work.
 
 See [AGENTS.md](AGENTS.md) for the policy and rules. 
 
@@ -14,6 +14,9 @@ claude plugin install core@asamiile
 claude plugin install visual-webgl@asamiile     # install only what you need
 claude plugin install motion-graphics@asamiile
 claude plugin install web-modern@asamiile
+claude plugin install web-animation@asamiile
+claude plugin install gsap@asamiile            # also installs web-animation
+claude plugin install wordpress@asamiile       # also installs web-modern
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -41,12 +44,17 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 
 | Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | Workflows that apply to any kind of project | (none yet) |
-| `visual-webgl` | Workflows for WebGL and Canvas visual production | (none yet) |
+| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project` |
+| `visual-webgl` | Workflows for WebGL and Canvas visual production | `canvas-webgl-performance` |
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | (none yet) |
-| `web-modern` | Framework-agnostic workflows for web development | (none yet) |
+| `web-modern` | Framework-agnostic workflows for web development | (none yet; starter code in `templates/web-modern/`) |
+| `web-animation` | Workflows for animation on web pages | `animation-fallbacks`, `visual-regression-test`, `capture-animation-frames`, `measure-animation-performance` |
+| `gsap` | GSAP-specific techniques (depends on `web-animation`) | `animation-tuning-mock` |
+| `wordpress` | Delivering front-end work for a WordPress theme (depends on `web-modern`) | `package-wordpress-embed` |
 
-Per-tool plugins such as `remotion`, `nextjs`, and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics` or `web-modern`).
+Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
+
+Per-tool plugins such as `remotion`, `nextjs`, and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, or `web-animation`).
 
 ## Working on this repository
 

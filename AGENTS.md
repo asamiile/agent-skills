@@ -22,6 +22,14 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `visual-webgl` | Workflows for WebGL and Canvas visual production |
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production |
 | `web-modern` | Framework-agnostic workflows for web development |
+| `web-animation` | Workflows for animation on web pages (fallbacks, visual tests, frame capture, performance) |
+
+Per-tool plugins that exist:
+
+| Plugin | Shared plugin |
+| --- | --- |
+| `gsap` | `web-animation` |
+| `wordpress` | `web-modern` |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
 

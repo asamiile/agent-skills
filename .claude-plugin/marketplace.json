@@ -24,6 +24,21 @@
       "name": "web-modern",
       "source": "./plugins/web-modern",
       "description": "Framework-agnostic workflows for modern web development"
+    },
+    {
+      "name": "web-animation",
+      "source": "./plugins/web-animation",
+      "description": "Workflows for animation on web pages: fallbacks, visual tests, frame capture, and performance measurement"
+    },
+    {
+      "name": "gsap",
+      "source": "./plugins/gsap",
+      "description": "GSAP-specific techniques for web animation"
+    },
+    {
+      "name": "wordpress",
+      "source": "./plugins/wordpress",
+      "description": "Workflows for delivering front-end work to be embedded in a WordPress theme"
     }
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push *)",
+      "Bash(git remote add *)",
+      "Bash(gh *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(scp *)",
+      "Bash(rsync *)",
+      "Bash(gcloud *)",
+      "Bash(npx vercel *)",
+      "Bash(npx netlify *)",
+      "Artifact",
+      "ArtifactComments",
+      "ArtifactData",
+      "mcp__claude-in-chrome__file_upload",
+      "mcp__claude-in-chrome__upload_image"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": ["registry.npmjs.org"]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "gsap",
+  "version": "0.1.0",
+  "description": "GSAP-specific techniques for web animation",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["gsap", "animation"],
+  "dependencies": ["web-animation"]
+}
