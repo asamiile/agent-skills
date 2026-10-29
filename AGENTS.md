@@ -23,6 +23,7 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production |
 | `web-modern` | Framework-agnostic workflows for web development |
 | `web-animation` | Workflows for animation on web pages (fallbacks, visual tests, frame capture, performance) |
+| `generative-art` | Tool-agnostic workflows for generative art and creative coding |
 
 Per-tool plugins that exist:
 
@@ -30,12 +31,14 @@ Per-tool plugins that exist:
 | --- | --- |
 | `gsap` | `web-animation` |
 | `wordpress` | `web-modern` |
+| `py5` | `generative-art` |
+| `remotion` | `motion-graphics` |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
 
 | Plugin | Shared plugin |
 | --- | --- |
-| `remotion`, other video tools (for example `after-effects`) | `motion-graphics` |
+| Other video tools (for example `after-effects`) | `motion-graphics` |
 | `nextjs`, `nuxt` (frontend) | `web-modern` |
 | `django`, a TypeScript backend (name decided when it is created) | `web-modern` |
 

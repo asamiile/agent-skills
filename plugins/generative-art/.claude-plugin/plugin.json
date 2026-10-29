@@ -1,0 +1,10 @@
+{
+  "name": "generative-art",
+  "version": "0.1.0",
+  "description": "Tool-agnostic workflows for generative art and creative coding: planning, critique loops, feedback-driven refinement, and write-ups",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["generative-art", "creative-coding"]
+}

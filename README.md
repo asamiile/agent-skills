@@ -17,6 +17,9 @@ claude plugin install web-modern@asamiile
 claude plugin install web-animation@asamiile
 claude plugin install gsap@asamiile            # also installs web-animation
 claude plugin install wordpress@asamiile       # also installs web-modern
+claude plugin install generative-art@asamiile
+claude plugin install py5@asamiile             # also installs generative-art
+claude plugin install remotion@asamiile        # also installs motion-graphics
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -44,17 +47,20 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 
 | Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project` |
+| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop` |
 | `visual-webgl` | Workflows for WebGL and Canvas visual production | `canvas-webgl-performance` |
-| `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | (none yet) |
+| `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | `verify-render-outputs`, `export-for-mobile`, `offload-renders` |
 | `web-modern` | Framework-agnostic workflows for web development | (none yet; starter code in `templates/web-modern/`) |
 | `web-animation` | Workflows for animation on web pages | `animation-fallbacks`, `visual-regression-test`, `capture-animation-frames`, `measure-animation-performance` |
 | `gsap` | GSAP-specific techniques (depends on `web-animation`) | `animation-tuning-mock` |
 | `wordpress` | Delivering front-end work for a WordPress theme (depends on `web-modern`) | `package-wordpress-embed` |
+| `generative-art` | Tool-agnostic workflows for generative art and creative coding | `autonomous-artwork-loop`, `polish-artwork-from-feedback`, `write-artwork-article` |
+| `py5` | py5-specific techniques (depends on `generative-art`) | `py5-sketch-setup` |
+| `remotion` | Remotion-specific techniques (depends on `motion-graphics`) | `remotion-project-structure`, `remotion-render-pipeline`, `duration-variants` |
 
 Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
 
-Per-tool plugins such as `remotion`, `nextjs`, and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, or `web-animation`).
+Per-tool plugins such as `nextjs` and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, or `generative-art`).
 
 ## Working on this repository
 

@@ -39,6 +39,21 @@
       "name": "wordpress",
       "source": "./plugins/wordpress",
       "description": "Workflows for delivering front-end work to be embedded in a WordPress theme"
+    },
+    {
+      "name": "generative-art",
+      "source": "./plugins/generative-art",
+      "description": "Tool-agnostic workflows for generative art and creative coding: planning, critique loops, feedback-driven refinement, and write-ups"
+    },
+    {
+      "name": "py5",
+      "source": "./plugins/py5",
+      "description": "py5-specific techniques for generative stills and animations"
+    },
+    {
+      "name": "remotion",
+      "source": "./plugins/remotion",
+      "description": "Remotion-specific structure, rendering, and verification techniques"
     }
   ]
 }
