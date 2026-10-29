@@ -26,6 +26,7 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `generative-art` | Tool-agnostic workflows for generative art and creative coding |
 | `mcp-server` | Workflows for building, cataloging, testing, and publishing MCP servers |
 | `mobile-app` | Tool-agnostic workflows for smartphone apps |
+| `ai-integration` | Tool-agnostic workflows for apps that call LLM and image-generation APIs or local models |
 
 Per-tool plugins that exist:
 
@@ -39,6 +40,8 @@ Per-tool plugins that exist:
 | `cloud-run` | `web-modern` |
 | `expo` | `mobile-app` |
 | `macos` | `core` |
+| `fastapi` | `web-modern` |
+| `comfyui` | `ai-integration` |
 | `ableton-live` | none yet (add one when a second music-production tool is imported) |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
@@ -48,6 +51,7 @@ Create a per-tool plugin only when an imported repository yields knowledge for t
 | Other video tools (for example `after-effects`) | `motion-graphics` |
 | `nuxt` (frontend) | `web-modern` |
 | `django`, a TypeScript backend (name decided when it is created) | `web-modern` |
+| `ollama` and other local model servers (when there is enough to fill a plugin) | `ai-integration` |
 
 - A per-tool plugin lists its shared plugin in the `dependencies` field of its `plugin.json`, so both are installed together
 - Do not create plugins named after a combination of tools (such as `nextjs-django`). A project installs one plugin per tool it uses

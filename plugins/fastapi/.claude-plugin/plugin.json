@@ -1,0 +1,17 @@
+{
+  "name": "fastapi",
+  "version": "0.1.0",
+  "description": "FastAPI-specific techniques: testing, auth, and rate limiting",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "fastapi",
+    "python",
+    "api"
+  ],
+  "dependencies": [
+    "web-modern"
+  ]
+}

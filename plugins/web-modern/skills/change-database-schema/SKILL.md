@@ -5,7 +5,7 @@ description: Changes a production database schema safely with a migration tool (
 
 # Change a database schema
 
-Starter file, in this repository: `templates/web-modern/scripts/er_diagram.py` (Mermaid ER diagram from SQLAlchemy models). Tool commands: [references/migration-tools.md](references/migration-tools.md).
+Starter file, in this repository: `templates/web-modern/scripts/er_diagram.py` (Mermaid ER diagram from SQLAlchemy models). Tool commands: [references/migration-tools.md](references/migration-tools.md). SQLite: [references/sqlite.md](references/sqlite.md).
 
 ## Rules
 

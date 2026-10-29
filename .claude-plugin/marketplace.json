@@ -89,6 +89,21 @@
       "name": "ableton-live",
       "source": "./plugins/ableton-live",
       "description": "Ableton Live Remote Scripts (Control Surface scripts) that talk to other apps"
+    },
+    {
+      "name": "ai-integration",
+      "source": "./plugins/ai-integration",
+      "description": "Tool-agnostic workflows for apps that call LLM and image-generation APIs or local models"
+    },
+    {
+      "name": "fastapi",
+      "source": "./plugins/fastapi",
+      "description": "FastAPI-specific techniques: testing, auth, and rate limiting"
+    },
+    {
+      "name": "comfyui",
+      "source": "./plugins/comfyui",
+      "description": "Driving ComfyUI from application code: API workflows, polling, and memory limits"
     }
   ]
 }

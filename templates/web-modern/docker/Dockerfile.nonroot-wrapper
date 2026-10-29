@@ -1,0 +1,17 @@
+# Runs an upstream image that defaults to root as an unprivileged user instead.
+FROM {upstream/image}:{pinned-tag}
+
+# The user's home is /app/data rather than the usual /home/<user>: one fixed path for every container keeps
+# volume mounts uniform. Tools that write under the home (caches, model stores) follow $HOME, so they work unchanged.
+ENV HOME=/app/data
+
+# Some base images already have a user at uid 1000 (for example "ubuntu"); remove it so ours can take that uid,
+# which matches the usual host uid and keeps bind-mounted files writable
+RUN (userdel -r ubuntu 2>/dev/null || true) \
+    && useradd --create-home --home-dir "$HOME" --uid 1000 appuser
+
+# Create every directory the process writes to and hand it to the user before switching. A named volume mounted
+# here on first run copies this ownership; a directory created later by root would not be writable
+RUN mkdir -p "$HOME/.cache/models" && chown -R appuser:appuser "$HOME"
+
+USER appuser
