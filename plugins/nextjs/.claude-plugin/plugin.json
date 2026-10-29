@@ -1,0 +1,11 @@
+{
+  "name": "nextjs",
+  "version": "0.1.0",
+  "description": "Next.js-specific techniques: locale routing and auth in the proxy, server-only loaders, and generated AI-facing routes",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["nextjs", "react", "web"],
+  "dependencies": ["web-modern"]
+}

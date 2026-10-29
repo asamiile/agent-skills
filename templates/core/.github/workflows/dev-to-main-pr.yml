@@ -1,0 +1,58 @@
+# Keeps one open pull request from dev to main, with the list of commits main does not have yet.
+# Creates it on the first push to dev; afterwards only refreshes the body.
+name: Dev to main PR
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+concurrency:
+  group: dev-to-main-pr
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: dev
+          fetch-depth: 0
+      - run: git fetch origin main
+      - name: Create or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          body="$(mktemp)"
+          {
+            echo "Brings \`dev\` into \`main\`."
+            echo
+            echo "### Commits not in main"
+            echo
+            if ! git merge-base --is-ancestor origin/main HEAD; then
+              echo "_main has commits that dev does not; resolve conflicts in this pull request._"
+              echo
+            fi
+            if [ "$(git rev-list --count origin/main..HEAD)" -eq 0 ]; then
+              echo "_None._"
+            else
+              git log origin/main..HEAD --no-merges --format='- `%h` %s'
+            fi
+            echo
+            echo "Merge this first, then the release pull request: tags and releases are created only from main."
+            echo
+            echo "_Updated by [this run]($RUN_URL)._"
+          } > "$body"
+          number="$(gh pr list --base main --head dev --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --body-file "$body"
+          else
+            gh pr create --base main --head dev --title "chore: merge dev into main" --body-file "$body"
+          fi

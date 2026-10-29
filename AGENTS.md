@@ -34,13 +34,15 @@ Per-tool plugins that exist:
 | `wordpress` | `web-modern` |
 | `py5` | `generative-art` |
 | `remotion` | `motion-graphics` |
+| `nextjs` | `web-modern` |
+| `cloud-run` | `web-modern` |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
 
 | Plugin | Shared plugin |
 | --- | --- |
 | Other video tools (for example `after-effects`) | `motion-graphics` |
-| `nextjs`, `nuxt` (frontend) | `web-modern` |
+| `nuxt` (frontend) | `web-modern` |
 | `django`, a TypeScript backend (name decided when it is created) | `web-modern` |
 
 - A per-tool plugin lists its shared plugin in the `dependencies` field of its `plugin.json`, so both are installed together

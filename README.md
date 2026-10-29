@@ -21,6 +21,8 @@ claude plugin install generative-art@asamiile
 claude plugin install py5@asamiile             # also installs generative-art
 claude plugin install remotion@asamiile        # also installs motion-graphics
 claude plugin install mcp-server@asamiile
+claude plugin install nextjs@asamiile          # also installs web-modern
+claude plugin install cloud-run@asamiile       # also installs web-modern
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -48,10 +50,10 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 
 | Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop` |
+| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop`, `audit-content-quality`, `proofread-copy`, `auto-fix-from-errors`, `set-up-release-flow`, `distribute-source-template` |
 | `visual-webgl` | Workflows for WebGL and Canvas visual production | `canvas-webgl-performance` |
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | `verify-render-outputs`, `export-for-mobile`, `offload-renders` |
-| `web-modern` | Framework-agnostic workflows for web development | (none yet; starter code in `templates/web-modern/`) |
+| `web-modern` | Framework-agnostic workflows for web development | `screen-specs-and-qa`, `verify-production-release`, `publish-content-for-ai`, `change-database-schema`, `track-api-costs` |
 | `web-animation` | Workflows for animation on web pages | `animation-fallbacks`, `visual-regression-test`, `capture-animation-frames`, `measure-animation-performance` |
 | `gsap` | GSAP-specific techniques (depends on `web-animation`) | `animation-tuning-mock` |
 | `wordpress` | Delivering front-end work for a WordPress theme (depends on `web-modern`) | `package-wordpress-embed` |
@@ -59,10 +61,12 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 | `py5` | py5-specific techniques (depends on `generative-art`) | `py5-sketch-setup` |
 | `remotion` | Remotion-specific techniques (depends on `motion-graphics`) | `remotion-project-structure`, `remotion-render-pipeline`, `duration-variants` |
 | `mcp-server` | Building, cataloging, testing, and publishing MCP servers | `build-knowledge-mcp-server`, `maintain-agent-manifest`, `publish-python-mcp-server` |
+| `nextjs` | Next.js-specific techniques (depends on `web-modern`) | `proxy-locale-and-auth`, `ai-facing-content-routes` |
+| `cloud-run` | Deploying to Google Cloud Run (depends on `web-modern`) | `deploy-to-cloud-run` |
 
 Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
 
-Per-tool plugins such as `nextjs` and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, or `generative-art`).
+Per-tool plugins such as `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, or `generative-art`).
 
 ## Working on this repository
 

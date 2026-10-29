@@ -1,0 +1,37 @@
+# When a release is published, attach a curated source zip for customers.
+# What is left out is controlled by export-ignore in .gitattributes. A person downloads it and uploads it to the store.
+name: Package release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Build the zip and check its contents
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          NAME: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          zip="${NAME}-${TAG}.zip"
+          git archive --format=zip --prefix="${NAME}/" -o "$zip" HEAD
+          unzip -l "$zip"
+          # Fail if anything that must never ship slipped through
+          if unzip -Z1 "$zip" | grep -E '(^|/)(\.env($|\.)|\.agents/|\.claude/|AGENTS\.md|.*\.pem$|sa-key.*\.json$)' | grep -v '\.env\.example$'; then
+            echo "Excluded files found in the archive"; exit 1
+          fi
+          echo "ZIP=$zip" >> "$GITHUB_ENV"
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" "$ZIP"

@@ -1,0 +1,102 @@
+# Deploy a backend and a frontend to Cloud Run on push to main.
+# Auth: Workload Identity Federation (no service account key stored in GitHub).
+# Order: build images → run migrations as a Cloud Run job → deploy backend → deploy frontend → smoke test.
+#
+# Repository variables (Settings → Variables): GCP_PROJECT_ID, GCP_REGION, GAR_REPOSITORY,
+#   WIF_PROVIDER (projects/{number}/locations/global/workloadIdentityPools/{pool}/providers/{provider}),
+#   DEPLOY_SA (deployer service account email), RUNTIME_SA (service account the services run as),
+#   PUBLIC_API_URL, PUBLIC_SITE_URL
+# Runtime secrets live in Secret Manager and are referenced by name below; nothing secret is passed through GitHub.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT: ${{ vars.GCP_PROJECT_ID }}
+  REGION: ${{ vars.GCP_REGION }}
+  REGISTRY: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GAR_REPOSITORY }}
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v7
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SA }}
+      - uses: google-github-actions/setup-gcloud@v3
+      - run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+
+      - name: Build and push
+        run: |
+          docker build -t "$REGISTRY/backend:${{ github.sha }}" ./backend
+          docker push "$REGISTRY/backend:${{ github.sha }}"
+
+      - name: Run migrations (same image, before the new code serves traffic)
+        run: |
+          gcloud run jobs deploy backend-migrate --quiet \
+            --image="$REGISTRY/backend:${{ github.sha }}" --region="$REGION" --project="$PROJECT" \
+            --service-account="${{ vars.RUNTIME_SA }}" \
+            --command="{migrate command, e.g. alembic}" --args="{e.g. upgrade,head}" \
+            --set-secrets="DATABASE_URL=database-url:latest" \
+            --max-retries=0 --task-timeout=10m
+          gcloud run jobs execute backend-migrate --region="$REGION" --project="$PROJECT" --wait
+
+      - uses: google-github-actions/deploy-cloudrun@v3
+        with:
+          service: backend
+          region: ${{ vars.GCP_REGION }}
+          image: ${{ env.REGISTRY }}/backend:${{ github.sha }}
+          flags: --service-account=${{ vars.RUNTIME_SA }} --allow-unauthenticated
+          env_vars: |
+            ENVIRONMENT=production
+            CORS_ORIGINS=${{ vars.PUBLIC_SITE_URL }}
+          secrets: |
+            DATABASE_URL=database-url:latest
+            {OTHER_SECRET}={other-secret-name}:latest
+
+  frontend:
+    needs: backend
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v7
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SA }}
+      - uses: google-github-actions/setup-gcloud@v3
+      - run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+
+      # Public values are compiled into the client bundle, so they are build arguments, not runtime env vars
+      - name: Build and push
+        run: |
+          docker build -f frontend/Dockerfile \
+            --build-arg NEXT_PUBLIC_API_URL="${{ vars.PUBLIC_API_URL }}" \
+            --build-arg NEXT_PUBLIC_SITE_URL="${{ vars.PUBLIC_SITE_URL }}" \
+            -t "$REGISTRY/frontend:${{ github.sha }}" .
+          docker push "$REGISTRY/frontend:${{ github.sha }}"
+
+      - uses: google-github-actions/deploy-cloudrun@v3
+        id: deploy
+        with:
+          service: frontend
+          region: ${{ vars.GCP_REGION }}
+          image: ${{ env.REGISTRY }}/frontend:${{ github.sha }}
+          flags: --service-account=${{ vars.RUNTIME_SA }} --allow-unauthenticated
+
+      - name: Smoke test
+        run: curl -sf -o /dev/null "${{ steps.deploy.outputs.url }}" && echo "Frontend responds"

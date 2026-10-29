@@ -59,6 +59,16 @@
       "name": "mcp-server",
       "source": "./plugins/mcp-server",
       "description": "Workflows for building, cataloging, testing, and publishing MCP servers that give AI agents read-only access to knowledge"
+    },
+    {
+      "name": "nextjs",
+      "source": "./plugins/nextjs",
+      "description": "Next.js-specific techniques: locale routing and auth in the proxy, server-only loaders, and generated AI-facing routes"
+    },
+    {
+      "name": "cloud-run",
+      "source": "./plugins/cloud-run",
+      "description": "Deploying web backends and frontends to Google Cloud Run from GitHub Actions"
     }
   ]
 }

@@ -11,7 +11,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v5
         id: release
         with:
           release-type: python
@@ -23,7 +23,7 @@ jobs:
     permissions:
       id-token: write            # PyPI Trusted Publishing (OIDC); no API token stored
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
       - run: uv build
       - uses: pypa/gh-action-pypi-publish@release/v1
