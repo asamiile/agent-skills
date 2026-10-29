@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# 案件固有の情報が含まれていないかを検査する。
-#   scripts/check-confidential.sh          ステージ済みの変更を検査（pre-commit から呼ぶ）
-#   scripts/check-confidential.sh --all    追跡中の全ファイルを検査
+# Checks for project-specific information.
+#   scripts/check-confidential.sh          check staged changes (called from pre-commit)
+#   scripts/check-confidential.sh --all    check every tracked file (called from pre-push)
 #
-# 検査するもの
-#   1. .confidential-terms に書いた語（クライアント名・案件名など。大文字小文字を区別しない）
-#   2. メールアドレス
-#   3. ユーザー名を含む絶対パス（/Users/xxx, /home/xxx, C:\Users\xxx）
-# 見つかったら終了コード 1 を返す。
+# What it checks
+#   1. Terms listed in .confidential-terms (client names, project names, and so on; case-insensitive)
+#   2. Email addresses
+#   3. Absolute paths that contain a user name (/Users/xxx, /home/xxx, C:\Users\xxx)
+# Exits with status 1 when anything is found.
 set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
@@ -16,7 +16,7 @@ terms_file=".confidential-terms"
 mode="staged"
 [[ "${1:-}" == "--all" ]] && mode="all"
 
-# 検査対象から外すファイル（この仕組み自体の説明・雛形）
+# Files excluded from the check (this mechanism's own script and template)
 exclude=(
   ':!scripts/check-confidential.sh'
   ':!.confidential-terms.example'
@@ -31,8 +31,8 @@ fi
 
 found=0
 
-# 検査対象の内容を grep する。staged モードではインデックス上の内容を見る。
-scan() { # $1: grep のオプション, $2: パターン, $3: 見出し
+# Greps the files being checked. In staged mode, reads the content in the index.
+scan() { # $1: grep options, $2: pattern, $3: heading
   local hits
   if [[ "$mode" == "staged" ]]; then
     hits=$(git grep --cached -n -I $1 -e "$2" -- $files || true)
@@ -48,20 +48,20 @@ scan() { # $1: grep のオプション, $2: パターン, $3: 見出し
 
 if [[ -f "$terms_file" ]]; then
   while IFS= read -r term || [[ -n "$term" ]]; do
-    term="${term%%#*}"                       # コメントを除く
-    term="$(echo "$term" | xargs)"           # 前後の空白を除く
+    term="${term%%#*}"                       # strip comments
+    term="$(echo "$term" | xargs)"           # trim whitespace
     [[ -z "$term" ]] && continue
-    scan "-i -F" "$term" "禁止語「${term}」が含まれています"
+    scan "-i -F" "$term" "Contains banned term \"${term}\""
   done < "$terms_file"
 else
-  echo "⚠ $terms_file がありません。.confidential-terms.example をコピーして、取り込み元の固有名を書いてください。" >&2
+  echo "⚠ $terms_file not found. Copy .confidential-terms.example and list the source repositories' proper names in it." >&2
 fi
 
-scan "-E" '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' "メールアドレスが含まれています"
-scan "-E" '(/Users/|/home/|[A-Za-z]:\\Users\\)[A-Za-z0-9._-]+' "ユーザー名を含む絶対パスが含まれています"
+scan "-E" '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' "Contains an email address"
+scan "-E" '(/Users/|/home/|[A-Za-z]:\\Users\\)[A-Za-z0-9._-]+' "Contains an absolute path with a user name"
 
 if [[ "$found" -ne 0 ]]; then
   echo
-  echo "案件固有の情報は {prefix} などに置き換えてください。誤検知のときはユーザーに確認してから対応してください。"
+  echo "Replace project-specific information with placeholders such as {prefix}. If this is a false positive, ask the user before working around it."
   exit 1
 fi

@@ -1,9 +1,10 @@
 {
   "name": "motion-graphics",
   "version": "0.1.0",
-  "description": "Remotion などを使った動画制作の手順",
+  "description": "Tool-agnostic workflows for motion graphics and video production",
   "author": {
     "name": "asamiile"
   },
-  "keywords": ["remotion", "video"]
+  "license": "MIT",
+  "keywords": ["motion-graphics", "video"]
 }

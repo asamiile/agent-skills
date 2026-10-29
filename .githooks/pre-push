@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Before each push, check every tracked file for project-specific information.
+exec "$(git rev-parse --show-toplevel)/scripts/check-confidential.sh" --all

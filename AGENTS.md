@@ -1,71 +1,89 @@
 # agent-skills
 
-これまでの制作物で得た作業手順・ルール・知見を Claude Code のプラグイン・スキルとしてまとめ、今後のプロジェクトで使い回すためのリポジトリ。
-リポジトリを1つずつ指定して、そこから知見を取り込んでいく。取り込みの手順は `.claude/skills/import-knowledge/SKILL.md` にある。
+A collection of workflows, rules, and lessons learned from past production work, packaged as Claude Code plugins and skills for reuse in future projects. Published publicly on GitHub.
+Knowledge is imported one repository at a time. The import workflow lives in `.claude/skills/import-knowledge/SKILL.md`.
 
-## 方針
+## Language
 
-### 構成
+- Write everything in this repository in English: documentation, skills, manifests, templates, script messages, comments, and commit messages
+- Talking with the user in another language is fine; only what gets committed must be English
 
-- プラグインのマーケットプレイスとして構成する。マーケットプレイス名は `asamiile`（`.claude-plugin/marketplace.json`）
-- 性質ごとにプラグインを分ける。スキルは作業の手順の単位にする（1スキル＝1手順）
+## Policy
 
-| プラグイン | 性質 |
+### Structure
+
+- The repository is a plugin marketplace named `asamiile` (`.claude-plugin/marketplace.json`)
+- Plugins are split by kind of work, and tool-specific knowledge goes into per-tool plugins. One skill is one workflow
+- Plugin names have no prefix (`core`, `remotion`, and so on)
+
+| Plugin | Contents |
 | --- | --- |
-| `core` | 性質に関係なく使う |
-| `visual-webgl` | WebGL・Canvas のビジュアル制作 |
-| `motion-graphics` | Remotion などの動画制作 |
-| `web-modern` | モダン Web 開発 |
+| `core` | Workflows that apply to any kind of project |
+| `visual-webgl` | Workflows for WebGL and Canvas visual production |
+| `motion-graphics` | Tool-agnostic workflows for motion graphics and video production |
+| `web-modern` | Framework-agnostic workflows for web development |
+
+Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
+
+| Plugin | Shared plugin |
+| --- | --- |
+| `remotion`, other video tools (for example `after-effects`) | `motion-graphics` |
+| `nextjs`, `nuxt` (frontend) | `web-modern` |
+| `django`, a TypeScript backend (name decided when it is created) | `web-modern` |
+
+- A per-tool plugin lists its shared plugin in the `dependencies` field of its `plugin.json`, so both are installed together
+- Do not create plugins named after a combination of tools (such as `nextjs-django`). A project installs one plugin per tool it uses
 
 ```text
-.claude-plugin/marketplace.json   マーケットプレイスの定義
-plugins/<プラグイン>/
-  .claude-plugin/plugin.json      プラグインの定義
-  skills/<スキル名>/SKILL.md       手順
-  skills/<スキル名>/references/    教訓・判断の記録、道具ごとの方法
-templates/<プラグイン>/            AGENTS.md の雛形、土台のコード
-IMPORTS.md                        取り込みの記録
+.claude-plugin/marketplace.json   Marketplace definition
+plugins/<plugin>/
+  .claude-plugin/plugin.json      Plugin definition
+  skills/<skill>/SKILL.md         Workflow
+  skills/<skill>/references/      Lessons learned and the reasoning behind decisions
+templates/<plugin>/               AGENTS.md templates and starter code
 ```
 
-### 置き場所の決め方
+### Where things go
 
-- 迷ったら「別の性質のリポジトリでも役に立つか」で判断する。最初は性質別のプラグインに置き、2つ目の性質で必要になったら `core` に移す
-- 手順は共通で道具だけが違うものは、手順を `core` のスキルに、道具ごとの方法を各プラグインの `references/` に置く
-- 種類ごとの置き場所
+- When unsure, ask: "Would this help in a repository of a different kind?" Start in the plugin for the kind of work, and move it to `core` once a second kind of work needs it
+- Tool-agnostic workflows go in the shared plugin for the kind of work (`motion-graphics`, `web-modern`, and so on). Workflows and techniques that only apply to one tool go in that tool's plugin (`remotion`, `nextjs`, and so on)
+- When the workflow is shared and only the tool differs, put the workflow in a skill of the shared plugin and the tool-specific technique in the tool's plugin
+- By type:
 
-| 種類 | 置き場所 |
+| Type | Location |
 | --- | --- |
-| 手順 | スキル（`SKILL.md`） |
-| 常に守らせるルール・構成 | `templates/` の AGENTS.md の雛形 |
-| 土台のコード | `templates/` |
-| 教訓・判断の記録 | スキルの `references/` |
+| Workflow | A skill (`SKILL.md`) |
+| Rules and structure to always follow | An AGENTS.md template in `templates/` |
+| Starter code | `templates/` |
+| Lessons learned and the reasoning behind decisions | The skill's `references/` |
 
-### スキルの書き方
+### Writing skills
 
-- 公式ドキュメントの最新の仕様に従う。推測で書かない
-- `description` には「何をするか」と「いつ使うか」を書き、主な用途を先頭に置く。ユーザーが実際に言いそうな言い回しを入れる（`when_to_use` と合わせて 1,536 文字で切られる）
-- `SKILL.md` は 500 行未満にする。詳しい内容は `references/` に分け、本文からリンクする
-- 変更したら `claude plugin validate .` と `claude plugin validate plugins/<プラグイン>` を通す
+- Follow the latest official documentation. Do not guess
+- A skill's `description` says what the skill does and when to use it, with the main use case first. Include phrases a user would actually say. (`description` and `when_to_use` together are truncated at 1,536 characters)
+- Keep `SKILL.md` under 500 lines. Move details into `references/` and link them from the body
+- After a change, run `claude plugin validate .` and `claude plugin validate plugins/<plugin>`
 
-### 取り込みの記録
+## Rules
 
-- どのリポジトリから何を取り込んだかを `IMPORTS.md` に残す
-- 取り込み元は、案件名・クライアント名が分からない呼び名で書く
+- The repository is public. Treat everything committed as readable by anyone
+- Ask the user before pushing
+- Do not bring in project-specific information. Replace client names (in any script, including katakana and romaji), provided assets, design values, and project-specific class names with placeholders such as `{prefix}`
+- Extract only generalized knowledge from source repositories. Never copy files as-is
+- Do not record which repository knowledge came from, anywhere in this repository (files, commit messages, or comments). Even an anonymized log reveals when imports happened and what kinds of projects they came from
+- Ask the user before adding an external library and before committing
+- When something is unclear, ask the user instead of guessing
+- The license is MIT (`LICENSE`). This is another reason never to include code from source repositories as-is
 
-## 守ること
+### Confidentiality checks
 
-- リポジトリは公開しない。GitHub に置く場合は private にする。push する前にユーザーに確認する
-- 案件固有の情報を持ち込まない。クライアント名（カナ・英字とも）・提供素材・デザインの数値・案件固有のクラス名などは `{prefix}` などに置き換える
-- 元のリポジトリからは、汎用化した知見だけを取り出す。ファイルをそのままコピーしない
-- 外部のライブラリを追加する前と、コミットする前にユーザーに確認する
-- 迷う点は推測で進めずにユーザーに確認する
+These mechanisms keep project-specific information out of the repository:
 
-### 守秘情報の検査
-
-案件固有の情報が紛れ込まないように、次の仕組みを使う。
-
-- `.confidential-terms`：取り込み元の固有名（クライアント名・案件名・接頭辞など）を書く禁止語リスト。`.gitignore` 済みで、コミットしない。雛形は `.confidential-terms.example`
-- `scripts/check-confidential.sh`：禁止語・メールアドレス・ユーザー名を含む絶対パスを検査する。`--all` で追跡中の全ファイルを検査する
-- `.githooks/pre-commit`：コミットのたびに上の検査を実行する。clone したら `git config core.hooksPath .githooks` を実行して有効にする
-- 検査で見つかったものは、`--no-verify` で回避せず、置き換えるかユーザーに確認する
-- 取り込み元を読む前に `.confidential-terms` を更新する（手順は `import-knowledge` スキル）
+- `.confidential-terms`: a list of banned terms from the source repositories (client names, project names, prefixes, and so on). Listed in `.gitignore` and never committed. The template is `.confidential-terms.example`
+- `scripts/check-confidential.sh`: checks for banned terms, email addresses, and absolute paths that contain a user name. `--all` checks every tracked file
+- `.githooks/pre-commit`: checks the staged changes on every commit
+- `.githooks/pre-push`: checks every tracked file on every push
+- After cloning, run `git config core.hooksPath .githooks` to enable the hooks
+- Do not bypass a finding with `--no-verify`. Replace the text, or ask the user
+- Update `.confidential-terms` before reading a source repository (see the `import-knowledge` skill)
+- Anything pushed stays in the commit history even after the file is deleted. If confidential information has been pushed, stop and tell the user

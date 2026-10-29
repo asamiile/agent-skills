@@ -1,3 +1,3 @@
-# 守秘情報の禁止語リスト（ローカル専用・コミットしない）
+# Banned-term list for the confidentiality check (local only, never committed)
 .confidential-terms
 .DS_Store

@@ -1,12 +1,12 @@
 # templates
 
-新しいプロジェクトに持ち込む雛形を置く。プラグインと同じ性質ごとにディレクトリを分ける。
+Templates to bring into new projects, organized by plugin.
 
 ```text
-templates/<プラグイン>/
-  AGENTS.md    常に守らせるルール・構成の雛形
-  ...          土台のコード
+templates/<plugin>/
+  AGENTS.md    Template for rules and structure to always follow
+  ...          Starter code
 ```
 
-- 案件固有の値は `{prefix}`・`{project}` などのプレースホルダーにする
-- 手順はここではなくスキルに、教訓・判断の記録はスキルの `references/` に置く
+- Replace project-specific values with placeholders such as `{prefix}` and `{project}`
+- Workflows belong in skills, not here. Lessons learned and the reasoning behind decisions belong in a skill's `references/`

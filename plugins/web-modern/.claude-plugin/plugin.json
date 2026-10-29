@@ -1,9 +1,10 @@
 {
   "name": "web-modern",
   "version": "0.1.0",
-  "description": "モダン Web 開発の手順",
+  "description": "Framework-agnostic workflows for modern web development",
   "author": {
     "name": "asamiile"
   },
+  "license": "MIT",
   "keywords": ["web"]
 }

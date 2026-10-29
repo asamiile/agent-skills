@@ -1,74 +1,78 @@
 ---
 name: import-knowledge
-description: 指定されたリポジトリから作業手順・ルール・知見を読み取り、案件固有の情報を除いて汎用化し、このスキル集に取り込む。ユーザーが「このリポジトリから取り込んで」「〇〇の知見をスキルにして」などと言い、取り込み元のリポジトリのパスや URL を示したときに使う。
-argument-hint: "[取り込み元リポジトリのパス]"
+description: Reads workflows, rules, and lessons learned from a given repository, strips project-specific information, generalizes them, and adds them to this skill collection. Use when the user points to a source repository path or URL and says things like "import from this repository", "turn what we learned in X into skills", or "add this project's know-how".
+argument-hint: "[path-to-source-repository]"
 ---
 
-# リポジトリから知見を取り込む
+# Import knowledge from a repository
 
-取り込み元: $ARGUMENTS
+Source: $ARGUMENTS
 
-AGENTS.md の方針と守ることに従う。各ステップの終わりでユーザーに確認し、確認が取れるまで次に進まない。
+Follow the policy and rules in AGENTS.md. This repository is public, so treat everything you write as readable by anyone. Write everything in English. At the end of each step, check with the user and do not continue until they confirm.
 
-## 1. 禁止語リストを用意する
+## 1. Prepare the banned-term list
 
-取り込み元を読む前に、案件固有の名前を `.confidential-terms` に登録する。
+Before reading the source, register its project-specific names in `.confidential-terms`.
 
-1. `.confidential-terms` がなければ `.confidential-terms.example` をコピーして作る
-2. 取り込み元の README・package.json・設定ファイル・git の remote URL・ディレクトリ名・CSS のクラス接頭辞から、固有名の候補を拾う
-3. 候補をユーザーに見せ、追加・削除してもらってから `.confidential-terms` に書く
-   - クライアント名（カナ・英字・略称・ドメイン）、案件名、サービス名、組織名、リポジトリ名、案件固有の接頭辞
-4. `.confidential-terms` の中身は、この会話以外のどこにも書き写さない
+1. If `.confidential-terms` does not exist, copy it from `.confidential-terms.example`
+2. Collect candidate names from the source's README, package.json, config files, git remote URL, directory names, and CSS class prefixes
+3. Show the candidates to the user, let them add or remove entries, then write them to `.confidential-terms`
+   - Client names (in any script, plus abbreviations and domains), project names, service names, organization names, repository names, project-specific prefixes
+4. Never copy the contents of `.confidential-terms` anywhere outside this conversation
 
-## 2. 取り込み元を読み、候補を挙げる
+## 2. Read the source and list candidates
 
-取り込み元はファイルを読むだけで、変更しない。次のものを探す。
+Only read the source; never modify it. Look for:
 
-- 繰り返し使える作業の手順
-- 常に守らせているルール・ディレクトリ構成
-- 土台として使い回せるコード
-- 失敗から得た教訓・判断の理由
+- Workflows that can be repeated
+- Rules and directory structures that are always enforced
+- Code that can be reused as a starting point
+- Lessons learned from failures and the reasoning behind decisions
 
-候補ごとに、次の表でユーザーに提示する。
+Present each candidate to the user in this table.
 
-| 候補 | 種類 | 置き場所 | 性質 |
+| Candidate | Type | Location | Plugin |
 | --- | --- | --- | --- |
-| （何の知見か） | 手順／ルール／土台のコード／教訓 | 下の表から選ぶ | core／visual-webgl／motion-graphics／web-modern |
+| (what the knowledge is) | Workflow / rule / starter code / lesson | Pick from the table below | Plugin name (shared or per-tool) |
 
-| 種類 | 置き場所 |
+| Type | Location |
 | --- | --- |
-| 手順 | `plugins/<性質>/skills/<スキル名>/SKILL.md`（1スキル＝1手順） |
-| 常に守らせるルール・構成 | `templates/<性質>/AGENTS.md` |
-| 土台のコード | `templates/<性質>/` |
-| 教訓・判断の記録 | スキルの `references/` |
+| Workflow | `plugins/<plugin>/skills/<skill>/SKILL.md` (one skill is one workflow) |
+| Rules and structure to always follow | `templates/<plugin>/AGENTS.md` |
+| Starter code | `templates/<plugin>/` |
+| Lessons learned and the reasoning behind decisions | The skill's `references/` |
 
-性質は「別の性質のリポジトリでも役に立つか」で決める。最初は性質別のプラグインに置き、2つ目の性質で必要になったら `core` に移す。手順が共通で道具だけが違う場合は、手順を `core` のスキルに、道具ごとの方法を各プラグインの `references/` に置く。
+Choose the plugin in this order:
 
-## 3. 汎用化して書く
+1. If it only applies to one tool (Remotion, Next.js, Django, and so on), put it in that tool's plugin. If the plugin does not exist yet, ask the user before creating it. List its shared plugin (`motion-graphics`, `web-modern`, and so on) under `dependencies` in its `plugin.json`, and add it to `marketplace.json` and the README list
+2. If it is tool-agnostic, put it in the plugin for the kind of work. Ask "Would this help in a repository of a different kind?" Start in the plugin for the kind of work, and move it to `core` once a second kind of work needs it
+3. If the workflow is shared and only the tool differs, put the workflow in a skill of the shared plugin and the tool-specific technique in the tool's plugin
 
-ファイルをコピーせず、知見を新しく書き起こす。次のものは書かない。残す必要があるものは `{prefix}`・`{project}`・`{brand-color}` などのプレースホルダーに置き換える。
+## 3. Generalize and write
 
-- クライアント名・案件名・サービス名（カナ・英字とも）
-- 提供素材（画像・文言・フォント・ロゴ）とそのファイル名
-- デザインの数値（色・余白・サイズ・ブレークポイント・イージングなどの具体値）
-- 案件固有のクラス名・ID・CSS 変数・環境変数・URL・API のエンドポイント
-- 人名・メールアドレス・ローカルの絶対パス
+Do not copy files; write the knowledge from scratch. Leave out the following, and replace anything that must remain with placeholders such as `{prefix}`, `{project}`, or `{brand-color}`:
 
-数値が判断の根拠になっている場合は、値ではなく決め方（「デザインの基準幅から vw に換算する」など）を書く。
+- Client, project, and service names (in any script)
+- Provided assets (images, copy, fonts, logos) and their file names
+- Design values (concrete colors, spacing, sizes, breakpoints, easing values)
+- Project-specific class names, IDs, CSS variables, environment variables, URLs, and API endpoints
+- Personal names, email addresses, and local absolute paths
 
-スキルを書くときは公式の SKILL.md の仕様に従う。
+When a value drives a decision, write how to decide it instead of the value itself (for example, "convert from the design's base width to vw").
 
-- `description` には「何をするか」と「いつ使うか」を書き、主な用途を先頭に置く。ユーザーが実際に言いそうな言い回しを入れる
-- 本文は 500 行未満にして、詳しい内容は `references/` に分け、本文からリンクする
+Follow the official SKILL.md specification when writing skills:
 
-## 4. 検査する
+- The `description` says what the skill does and when to use it, with the main use case first. Include phrases a user would actually say
+- Keep the body under 500 lines. Move details into `references/` and link them from the body
 
-1. `scripts/check-confidential.sh --all` を実行し、何も検出されないことを確かめる
-2. 追加・変更したファイルを読み直し、スクリプトでは見つからない固有の情報（言い換えた案件名、特徴的な数値、素材の説明）が残っていないかを確かめる
-3. `claude plugin validate .` と、変更したプラグインごとの `claude plugin validate plugins/<性質>` が通ることを確かめる
+## 4. Check
 
-## 5. 記録して、コミットの確認を取る
+1. Run `scripts/check-confidential.sh --all` and confirm it finds nothing
+2. Reread every added or changed file for project-specific information the script cannot catch (paraphrased project names, distinctive values, descriptions of assets)
+3. Confirm that `claude plugin validate .` and `claude plugin validate plugins/<plugin>` pass for each changed plugin
 
-1. `IMPORTS.md` に取り込みの記録を追記する。取り込み元は案件名・クライアント名が分からない呼び名（「WebGL のビジュアル制作 #1」など）で書く
-2. README のスキル一覧を更新する
-3. 差分の要約をユーザーに見せ、コミットしてよいかを確認する。push はしない
+## 5. Update the list and ask before committing
+
+1. Update the skill list in the README
+2. Show the user a summary of the diff and ask whether to commit. Do not record where the knowledge came from, in files or in the commit message
+3. Do not push (if a push is wanted, ask the user first)

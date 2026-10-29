@@ -1,64 +1,83 @@
 # agent-skills
 
-制作で得た作業手順・ルール・知見をまとめた、Claude Code のプラグインのマーケットプレイス `asamiile`。
+`asamiile`, a Claude Code plugin marketplace of workflows, rules, and lessons learned from visual, motion graphics, and web production work.
 
-方針とルールは [AGENTS.md](AGENTS.md)、取り込みの記録は [IMPORTS.md](IMPORTS.md) を参照。
+See [AGENTS.md](AGENTS.md) for the policy and rules. 
 
-## 導入方法
+## Installation
 
-### ローカルのパスから
+### From GitHub
 
 ```bash
-claude plugin marketplace add /path/to/agent-skills
+claude plugin marketplace add asamiile/agent-skills
 claude plugin install core@asamiile
-claude plugin install visual-webgl@asamiile     # 必要なものだけ
+claude plugin install visual-webgl@asamiile     # install only what you need
 claude plugin install motion-graphics@asamiile
 claude plugin install web-modern@asamiile
 ```
 
-ローカルのパスから追加した場合、スキルはこのディレクトリから直接読まれる。編集は次のセッションの開始時か、セッション内で `/reload-plugins` を実行したときに反映される。
+Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
 
-### GitHub（private）から
+### From a local path
 
 ```bash
-claude plugin marketplace add <owner>/agent-skills
+claude plugin marketplace add /path/to/agent-skills
 claude plugin install core@asamiile
 ```
 
-### 確認・削除
+When the marketplace is added from a local path, skills are read directly from that directory. Edits take effect at the next session start, or when you run `/reload-plugins` in a session.
+
+### Inspect and remove
 
 ```bash
-claude plugin list                            # 導入済みのプラグイン
-claude plugin details core                    # プラグインのスキル一覧
-claude plugin marketplace remove asamiile     # マーケットプレイスとそのプラグインを削除
+claude plugin list                            # installed plugins
+claude plugin details core                    # skills in a plugin
+claude plugin marketplace remove asamiile     # remove the marketplace and its plugins
 ```
 
-スキルは `/<プラグイン>:<スキル名>` で呼び出せる。Claude が説明文から判断して自動で使うこともある。
+Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own when its description matches the task.
 
-## プラグインとスキルの一覧
+## Plugins and skills
 
-| プラグイン | 性質 | スキル |
+| Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | 性質に関係なく使う | （まだなし） |
-| `visual-webgl` | WebGL・Canvas のビジュアル制作 | （まだなし） |
-| `motion-graphics` | Remotion などの動画制作 | （まだなし） |
-| `web-modern` | モダン Web 開発 | （まだなし） |
+| `core` | Workflows that apply to any kind of project | (none yet) |
+| `visual-webgl` | Workflows for WebGL and Canvas visual production | (none yet) |
+| `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | (none yet) |
+| `web-modern` | Framework-agnostic workflows for web development | (none yet) |
 
-## このリポジトリで作業するとき
+Per-tool plugins such as `remotion`, `nextjs`, and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics` or `web-modern`).
 
-clone したら、守秘情報の検査を有効にする。
+## Working on this repository
+
+After cloning, enable the confidentiality checks that run before each commit and push.
 
 ```bash
 git config core.hooksPath .githooks
-cp .confidential-terms.example .confidential-terms   # 禁止語を書く（コミットされない）
+cp .confidential-terms.example .confidential-terms   # list banned terms (never committed)
 ```
 
-知見の取り込みは、このリポジトリで Claude Code を開き、`/import-knowledge <取り込み元のパス>` を実行する。
+To import knowledge, open Claude Code in this repository and run `/import-knowledge <path-to-source-repository>`.
 
-変更したら検証する。
+Validate after every change.
 
 ```bash
 claude plugin validate .
-claude plugin validate plugins/<プラグイン>
+claude plugin validate plugins/<plugin>
 scripts/check-confidential.sh --all
 ```
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Support
+
+If you find this helpful, consider supporting the work:
+
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/asamiile)
+
+
+## Author
+
+[Asami.K](https://asami.tokyo/)
