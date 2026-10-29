@@ -1,0 +1,43 @@
+# Runs the real install scripts on macOS and Windows with HOME / USERPROFILE pointed at a throwaway folder,
+# so a change to the component's layout or to the scripts cannot silently break installation.
+# Only on changes to those paths: macOS and Windows runners cost a multiple of Linux minutes.
+name: Installer verify
+
+on:
+  pull_request:
+    paths: ["{component-dir}/**", "{installer-dir}/install.command", "{installer-dir}/install.bat"]
+  push:
+    branches: [main]
+    paths: ["{component-dir}/**", "{installer-dir}/install.command", "{installer-dir}/install.bat"]
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install twice (fresh, then over an existing copy)
+        working-directory: "{installer-dir}"
+        env:
+          HOME: ${{ runner.temp }}/fake-home
+        run: bash install.command && bash install.command
+      - name: Check the installed files
+        run: test -f "${{ runner.temp }}/fake-home/{relative/path/to/host/folder}/{Component}/{entry file}"
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install twice
+        working-directory: "{installer-dir}"
+        shell: cmd
+        env:
+          USERPROFILE: ${{ runner.temp }}\fake-home
+        run: install.bat && install.bat
+      - name: Check the installed files
+        shell: pwsh
+        run: |
+          $target = "${{ runner.temp }}\fake-home\{relative\path\to\host\folder}\{Component}\{entry file}"
+          if (-not (Test-Path $target)) { throw "Not installed: $target" }

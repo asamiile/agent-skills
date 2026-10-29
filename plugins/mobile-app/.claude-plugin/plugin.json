@@ -1,0 +1,14 @@
+{
+  "name": "mobile-app",
+  "version": "0.1.0",
+  "description": "Tool-agnostic workflows for smartphone apps: store submission, in-app purchases, local-network devices, and stored data",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mobile",
+    "ios",
+    "android"
+  ]
+}

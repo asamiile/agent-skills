@@ -1,0 +1,17 @@
+{
+  "name": "expo",
+  "version": "0.1.0",
+  "description": "Expo and React Native techniques: release pipeline, development builds, and testing",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "expo",
+    "react-native",
+    "mobile"
+  ],
+  "dependencies": [
+    "mobile-app"
+  ]
+}

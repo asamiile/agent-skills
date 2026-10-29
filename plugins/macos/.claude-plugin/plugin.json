@@ -1,0 +1,17 @@
+{
+  "name": "macos",
+  "version": "0.1.0",
+  "description": "macOS distribution: code signing and notarization in CI",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "macos",
+    "codesign",
+    "notarization"
+  ],
+  "dependencies": [
+    "core"
+  ]
+}

@@ -25,6 +25,7 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `web-animation` | Workflows for animation on web pages (fallbacks, visual tests, frame capture, performance) |
 | `generative-art` | Tool-agnostic workflows for generative art and creative coding |
 | `mcp-server` | Workflows for building, cataloging, testing, and publishing MCP servers |
+| `mobile-app` | Tool-agnostic workflows for smartphone apps |
 
 Per-tool plugins that exist:
 
@@ -36,6 +37,9 @@ Per-tool plugins that exist:
 | `remotion` | `motion-graphics` |
 | `nextjs` | `web-modern` |
 | `cloud-run` | `web-modern` |
+| `expo` | `mobile-app` |
+| `macos` | `core` |
+| `ableton-live` | none yet (add one when a second music-production tool is imported) |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
 

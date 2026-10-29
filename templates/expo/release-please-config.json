@@ -1,0 +1,10 @@
+{
+  "include-component-in-tag": false,
+  "packages": {
+    "{app-folder}": {
+      "release-type": "node",
+      "package-name": "{app-slug}",
+      "changelog-path": "CHANGELOG.md"
+    }
+  }
+}

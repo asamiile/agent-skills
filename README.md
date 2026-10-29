@@ -23,6 +23,10 @@ claude plugin install remotion@asamiile        # also installs motion-graphics
 claude plugin install mcp-server@asamiile
 claude plugin install nextjs@asamiile          # also installs web-modern
 claude plugin install cloud-run@asamiile       # also installs web-modern
+claude plugin install mobile-app@asamiile
+claude plugin install expo@asamiile            # also installs mobile-app
+claude plugin install macos@asamiile           # also installs core
+claude plugin install ableton-live@asamiile
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -50,7 +54,7 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 
 | Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop`, `audit-content-quality`, `proofread-copy`, `auto-fix-from-errors`, `set-up-release-flow`, `distribute-source-template` |
+| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop`, `audit-content-quality`, `proofread-copy`, `auto-fix-from-errors`, `set-up-release-flow`, `distribute-source-template`, `ship-companion-installer`, `watch-platform-updates`, `document-operations` |
 | `visual-webgl` | Workflows for WebGL and Canvas visual production | `canvas-webgl-performance` |
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | `verify-render-outputs`, `export-for-mobile`, `offload-renders` |
 | `web-modern` | Framework-agnostic workflows for web development | `screen-specs-and-qa`, `verify-production-release`, `publish-content-for-ai`, `change-database-schema`, `track-api-costs` |
@@ -63,10 +67,14 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 | `mcp-server` | Building, cataloging, testing, and publishing MCP servers | `build-knowledge-mcp-server`, `maintain-agent-manifest`, `publish-python-mcp-server` |
 | `nextjs` | Next.js-specific techniques (depends on `web-modern`) | `proxy-locale-and-auth`, `ai-facing-content-routes` |
 | `cloud-run` | Deploying to Google Cloud Run (depends on `web-modern`) | `deploy-to-cloud-run` |
+| `mobile-app` | Tool-agnostic workflows for smartphone apps | `submit-to-app-store`, `set-up-in-app-purchases`, `connect-to-local-devices`, `migrate-local-storage` |
+| `expo` | Expo and React Native techniques (depends on `mobile-app`) | `expo-release-pipeline`, `expo-development-builds`, `test-react-native-app` |
+| `macos` | macOS signing and notarization (depends on `core`) | `sign-and-notarize-macos` |
+| `ableton-live` | Ableton Live Remote Scripts | `build-remote-script` |
 
 Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
 
-Per-tool plugins such as `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, or `generative-art`).
+Per-tool plugins such as `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, `generative-art`, `mobile-app`, or `core`).
 
 ## Working on this repository
 
