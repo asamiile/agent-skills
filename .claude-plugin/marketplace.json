@@ -54,6 +54,11 @@
       "name": "remotion",
       "source": "./plugins/remotion",
       "description": "Remotion-specific structure, rendering, and verification techniques"
+    },
+    {
+      "name": "mcp-server",
+      "source": "./plugins/mcp-server",
+      "description": "Workflows for building, cataloging, testing, and publishing MCP servers that give AI agents read-only access to knowledge"
     }
   ]
 }

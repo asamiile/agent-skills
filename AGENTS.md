@@ -24,6 +24,7 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `web-modern` | Framework-agnostic workflows for web development |
 | `web-animation` | Workflows for animation on web pages (fallbacks, visual tests, frame capture, performance) |
 | `generative-art` | Tool-agnostic workflows for generative art and creative coding |
+| `mcp-server` | Workflows for building, cataloging, testing, and publishing MCP servers |
 
 Per-tool plugins that exist:
 

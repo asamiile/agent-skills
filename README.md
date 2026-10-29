@@ -20,6 +20,7 @@ claude plugin install wordpress@asamiile       # also installs web-modern
 claude plugin install generative-art@asamiile
 claude plugin install py5@asamiile             # also installs generative-art
 claude plugin install remotion@asamiile        # also installs motion-graphics
+claude plugin install mcp-server@asamiile
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -57,6 +58,7 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 | `generative-art` | Tool-agnostic workflows for generative art and creative coding | `autonomous-artwork-loop`, `polish-artwork-from-feedback`, `write-artwork-article` |
 | `py5` | py5-specific techniques (depends on `generative-art`) | `py5-sketch-setup` |
 | `remotion` | Remotion-specific techniques (depends on `motion-graphics`) | `remotion-project-structure`, `remotion-render-pipeline`, `duration-variants` |
+| `mcp-server` | Building, cataloging, testing, and publishing MCP servers | `build-knowledge-mcp-server`, `maintain-agent-manifest`, `publish-python-mcp-server` |
 
 Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
 
