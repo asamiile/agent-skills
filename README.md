@@ -112,8 +112,8 @@ Setup:
 
 1. `cp .import-sources.example.json .import-sources.json` and list the sources (gitignored: it names the source repositories). Client repositories that must not be processed by tools outside the agreed scope stay out of this list and are imported manually
 2. Record the current state of each source once: `scripts/check-sources.py mark <id>`
-3. In Claude Desktop: **Code → Scheduled → New task**, turn on **Only on this computer**, select this repository as the folder, choose **Weekly**, and paste the prompt from [.claude/scheduled/import-check.md](.claude/scheduled/import-check.md). After creating it, turn on **Worktree** in the task's **Edit** form
-4. Click **Run now** once and choose **Always allow** for the commands it asks about, so later runs do not stall
+3. In Claude Desktop: **Code → Scheduled → New task**, turn on **Only on this computer**, select this repository as the folder, choose **Weekly**, and paste the whole prompt from [.claude/scheduled/import-check.md](.claude/scheduled/import-check.md), including its Rules. Leave **Worktree** off: a worktree contains only tracked files, so the gitignored source list, banned terms, and reports would be missing. The task changes no tracked files, so running in the working folder is safe
+4. Permission mode: **Auto** (the default in the instructions box) suits this task, since it only reads and writes gitignored reports; Auto blocks risky actions such as pushing. With the mode that asks every time instead, click **Run now** once and choose **Always allow** for each command it asks about, so later runs do not stall
 5. For phone notifications: install the Claude app with the same account and allow notifications, turn on **Push when Claude decides** and **Push when actions required** in `/config`, and turn on **Connect new sessions to Remote Control** in Claude Desktop's settings. Confirm with **Run now** that the notification arrives
 
 Reports are written to `.import-reports/` (gitignored). To import from a report, run `/import-knowledge <source>` and follow the incremental steps in the skill.
