@@ -76,3 +76,13 @@ Follow the official SKILL.md specification when writing skills:
 1. Update the skill list in the README
 2. Show the user a summary of the diff and ask whether to commit. Do not record where the knowledge came from, in files or in the commit message
 3. Do not push (if a push is wanted, ask the user first)
+4. If the source is listed in `.import-sources.json`, record the imported state after the commit: `scripts/check-sources.py mark <id>` (or `mark <id> <sha>` for the exact commit that was read). When the user decides not to import a change, mark it too, so the weekly check stops reporting it
+
+## Importing changes since the last import
+
+When the source is listed in `.import-sources.json` and has an `imported_commit` (for example after the weekly check's report in `.import-reports/`):
+
+1. Run `scripts/check-sources.py` and take the commit range for the source. If it says "history rewritten", treat it as a full import
+2. Do step 1 only for names that appear in the changed files and are not yet banned
+3. Read only the changed files and the context needed to understand them. Check each candidate against the existing skills and templates: prefer updating an existing skill over adding a near-duplicate, and note when a change contradicts something already written
+4. Continue with steps 2 to 5 as usual, including the confirmations

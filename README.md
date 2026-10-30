@@ -97,6 +97,27 @@ cp .confidential-terms.example .confidential-terms   # list banned terms (never 
 
 To import knowledge, open Claude Code in this repository and run `/import-knowledge <path-to-source-repository>`.
 
+### Automatic import checks
+
+A weekly local scheduled task in Claude Desktop checks the source repositories for new commits and writes a report of import candidates. It only reports: importing, committing, and pushing stay manual, with the usual confirmations.
+
+**Requirements: the check runs only when both of these are true at the scheduled time**
+
+1. **The computer is on and awake.** A sleeping computer skips the run; closing a laptop lid puts it to sleep. Turn on **Keep computer awake** in Claude Desktop's settings to prevent idle sleep
+2. **The Claude Desktop app is running.** Scheduled tasks are checked by the app; with the app closed, nothing runs
+
+A missed run is caught up once, the next time the app starts or the computer wakes (for runs missed within the last seven days). The notification includes the previous check date, so a long gap is visible. When neither condition held for a while, click **Run now** on the task.
+
+Setup:
+
+1. `cp .import-sources.example.json .import-sources.json` and list the sources (gitignored: it names the source repositories). Client repositories that must not be processed by tools outside the agreed scope stay out of this list and are imported manually
+2. Record the current state of each source once: `scripts/check-sources.py mark <id>`
+3. In Claude Desktop: **Code → Scheduled → New task**, turn on **Only on this computer**, select this repository as the folder, choose **Weekly**, and paste the prompt from [.claude/scheduled/import-check.md](.claude/scheduled/import-check.md). After creating it, turn on **Worktree** in the task's **Edit** form
+4. Click **Run now** once and choose **Always allow** for the commands it asks about, so later runs do not stall
+5. For phone notifications: install the Claude app with the same account and allow notifications, turn on **Push when Claude decides** and **Push when actions required** in `/config`, and turn on **Connect new sessions to Remote Control** in Claude Desktop's settings. Confirm with **Run now** that the notification arrives
+
+Reports are written to `.import-reports/` (gitignored). To import from a report, run `/import-knowledge <source>` and follow the incremental steps in the skill.
+
 Validate after every change.
 
 ```bash

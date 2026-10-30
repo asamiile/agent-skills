@@ -1,3 +1,6 @@
 # Banned-term list for the confidentiality check (local only, never committed)
 .confidential-terms
 .DS_Store
+# Import sources and check reports name the source repositories (local only, never committed)
+.import-sources.json
+.import-reports/
