@@ -1,0 +1,14 @@
+{
+  "name": "electronics",
+  "version": "0.1.0",
+  "description": "Tool-agnostic workflows for microcontroller, single-board computer, and IoT projects: project layout, device credentials, and device-to-cloud data pipelines",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "electronics",
+    "embedded",
+    "iot"
+  ]
+}

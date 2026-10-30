@@ -104,6 +104,16 @@
       "name": "comfyui",
       "source": "./plugins/comfyui",
       "description": "Driving ComfyUI from application code: API workflows, polling, and memory limits"
+    },
+    {
+      "name": "electronics",
+      "source": "./plugins/electronics",
+      "description": "Tool-agnostic workflows for microcontroller, single-board computer, and IoT projects: project layout, device credentials, and device-to-cloud data pipelines"
+    },
+    {
+      "name": "arduino",
+      "source": "./plugins/arduino",
+      "description": "Arduino-specific workflows: Arduino CLI builds, sketch project files, and firmware conventions"
     }
   ]
 }

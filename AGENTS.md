@@ -27,6 +27,7 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `mcp-server` | Workflows for building, cataloging, testing, and publishing MCP servers |
 | `mobile-app` | Tool-agnostic workflows for smartphone apps |
 | `ai-integration` | Tool-agnostic workflows for apps that call LLM and image-generation APIs or local models |
+| `electronics` | Tool-agnostic workflows for microcontroller, single-board computer, and IoT projects |
 
 Per-tool plugins that exist:
 
@@ -42,6 +43,7 @@ Per-tool plugins that exist:
 | `macos` | `core` |
 | `fastapi` | `web-modern` |
 | `comfyui` | `ai-integration` |
+| `arduino` | `electronics` |
 | `ableton-live` | none yet (add one when a second music-production tool is imported) |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:

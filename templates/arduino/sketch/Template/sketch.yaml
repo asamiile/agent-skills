@@ -1,0 +1,16 @@
+# Sketch project file: arduino-cli reads it when the flags are omitted
+#   arduino-cli compile sketch/Template            (uses default_profile: pinned core and libraries)
+#   arduino-cli upload  sketch/Template -p {port}
+#   arduino-cli monitor -p {port}                  (uses default_port_config)
+profiles:
+  main:
+    notes: "{Board name}. Versions pinned so the build does not change when global installs do"
+    fqbn: "{vendor:arch:board}"            # exact FQBN of the target board, from `arduino-cli board listall`
+    platforms:
+      - platform: "{vendor:arch} ({version})"
+        # platform_index_url: {URL}        # only for non-arduino platforms
+    libraries:
+      - "{Library Name} ({version})"
+default_profile: main
+default_port_config:
+  baudrate: 115200

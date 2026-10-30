@@ -30,6 +30,8 @@ claude plugin install ableton-live@asamiile
 claude plugin install ai-integration@asamiile
 claude plugin install fastapi@asamiile         # also installs web-modern
 claude plugin install comfyui@asamiile         # also installs ai-integration
+claude plugin install electronics@asamiile
+claude plugin install arduino@asamiile         # also installs electronics
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -57,7 +59,7 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 
 | Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop`, `audit-content-quality`, `proofread-copy`, `auto-fix-from-errors`, `set-up-release-flow`, `distribute-source-template`, `ship-companion-installer`, `watch-platform-updates`, `document-operations` |
+| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop`, `audit-content-quality`, `proofread-copy`, `auto-fix-from-errors`, `set-up-release-flow`, `distribute-source-template`, `ship-companion-installer`, `watch-platform-updates`, `document-operations`, `sync-bilingual-docs` |
 | `visual-webgl` | Workflows for WebGL and Canvas visual production | `canvas-webgl-performance` |
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | `verify-render-outputs`, `export-for-mobile`, `offload-renders` |
 | `web-modern` | Framework-agnostic workflows for web development | `screen-specs-and-qa`, `verify-production-release`, `publish-content-for-ai`, `change-database-schema`, `track-api-costs`, `harden-local-docker-app` |
@@ -69,7 +71,7 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 | `remotion` | Remotion-specific techniques (depends on `motion-graphics`) | `remotion-project-structure`, `remotion-render-pipeline`, `duration-variants` |
 | `mcp-server` | Building, cataloging, testing, and publishing MCP servers | `build-knowledge-mcp-server`, `maintain-agent-manifest`, `publish-python-mcp-server` |
 | `nextjs` | Next.js-specific techniques (depends on `web-modern`) | `proxy-locale-and-auth`, `ai-facing-content-routes`, `proxy-long-backend-requests` |
-| `cloud-run` | Deploying to Google Cloud Run (depends on `web-modern`) | `deploy-to-cloud-run` |
+| `cloud-run` | Deploying to Google Cloud Run (depends on `web-modern`) | `deploy-to-cloud-run`, `alert-to-discord` |
 | `mobile-app` | Tool-agnostic workflows for smartphone apps | `submit-to-app-store`, `set-up-in-app-purchases`, `connect-to-local-devices`, `migrate-local-storage` |
 | `expo` | Expo and React Native techniques (depends on `mobile-app`) | `expo-release-pipeline`, `expo-development-builds`, `test-react-native-app` |
 | `macos` | macOS signing and notarization (depends on `core`) | `sign-and-notarize-macos` |
@@ -77,10 +79,12 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 | `ai-integration` | Apps that call LLM and image-generation APIs or local models | `pluggable-ai-providers`, `two-step-generation`, `safe-prompt-expansion`, `run-local-ai-stack` |
 | `fastapi` | FastAPI-specific techniques (depends on `web-modern`) | `test-fastapi-app`, `protect-fastapi-endpoints` |
 | `comfyui` | Driving ComfyUI from code (depends on `ai-integration`) | `drive-comfyui-from-code` |
+| `electronics` | Microcontroller, single-board computer, and IoT projects | `organize-hardware-projects`, `manage-device-credentials`, `build-device-data-pipeline` |
+| `arduino` | Arduino CLI builds and firmware (depends on `electronics`) | `build-with-arduino-cli` |
 
 Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
 
-Per-tool plugins such as `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, `generative-art`, `mobile-app`, `ai-integration`, or `core`).
+Per-tool plugins such as `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, `generative-art`, `mobile-app`, `ai-integration`, `electronics`, or `core`).
 
 ## Working on this repository
 
