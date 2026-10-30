@@ -1,0 +1,29 @@
+# Paths left out of `git archive` (the source zip sold or shared with customers).
+# Rename to .gitattributes or merge into the existing one.
+# Listing both `dir` and `dir/**` works across Git versions. Always check the result with `git archive HEAD | tar -t`.
+
+# Agent and operator material
+.claude                         export-ignore
+.claude/**                      export-ignore
+.agents                         export-ignore
+.agents/**                      export-ignore
+AGENTS.md                       export-ignore
+CLAUDE.md                       export-ignore
+.mcp.json                       export-ignore
+skills-lock.json                export-ignore
+
+# Operator-only automation
+.github/workflows/release.yml   export-ignore
+.github/workflows/deploy.yml    export-ignore
+.github/workflows/auto-fix.yml  export-ignore
+.github/workflows/package-release.yml export-ignore
+release-please-config.json      export-ignore
+.release-please-manifest.json   export-ignore
+scripts/internal                export-ignore
+scripts/internal/**             export-ignore
+
+# Developer documents (customers start from docs/QUICKSTART.*)
+README.md                       export-ignore
+CHANGELOG.md                    export-ignore
+docs/store                      export-ignore
+docs/store/**                   export-ignore

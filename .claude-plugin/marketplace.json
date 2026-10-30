@@ -24,6 +24,96 @@
       "name": "web-modern",
       "source": "./plugins/web-modern",
       "description": "Framework-agnostic workflows for modern web development"
+    },
+    {
+      "name": "web-animation",
+      "source": "./plugins/web-animation",
+      "description": "Workflows for animation on web pages: fallbacks, visual tests, frame capture, and performance measurement"
+    },
+    {
+      "name": "gsap",
+      "source": "./plugins/gsap",
+      "description": "GSAP-specific techniques for web animation"
+    },
+    {
+      "name": "wordpress",
+      "source": "./plugins/wordpress",
+      "description": "Workflows for delivering front-end work to be embedded in a WordPress theme"
+    },
+    {
+      "name": "generative-art",
+      "source": "./plugins/generative-art",
+      "description": "Tool-agnostic workflows for generative art and creative coding: planning, critique loops, feedback-driven refinement, and write-ups"
+    },
+    {
+      "name": "py5",
+      "source": "./plugins/py5",
+      "description": "py5-specific techniques for generative stills and animations"
+    },
+    {
+      "name": "remotion",
+      "source": "./plugins/remotion",
+      "description": "Remotion-specific structure, rendering, and verification techniques"
+    },
+    {
+      "name": "mcp-server",
+      "source": "./plugins/mcp-server",
+      "description": "Workflows for building, cataloging, testing, and publishing MCP servers that give AI agents read-only access to knowledge"
+    },
+    {
+      "name": "nextjs",
+      "source": "./plugins/nextjs",
+      "description": "Next.js-specific techniques: locale routing and auth in the proxy, server-only loaders, and generated AI-facing routes"
+    },
+    {
+      "name": "cloud-run",
+      "source": "./plugins/cloud-run",
+      "description": "Deploying web backends and frontends to Google Cloud Run from GitHub Actions"
+    },
+    {
+      "name": "mobile-app",
+      "source": "./plugins/mobile-app",
+      "description": "Tool-agnostic workflows for smartphone apps: store submission, in-app purchases, local-network devices, and stored data"
+    },
+    {
+      "name": "expo",
+      "source": "./plugins/expo",
+      "description": "Expo and React Native techniques: release pipeline, development builds, and testing"
+    },
+    {
+      "name": "macos",
+      "source": "./plugins/macos",
+      "description": "macOS distribution: code signing and notarization in CI"
+    },
+    {
+      "name": "ableton-live",
+      "source": "./plugins/ableton-live",
+      "description": "Ableton Live Remote Scripts (Control Surface scripts) that talk to other apps"
+    },
+    {
+      "name": "ai-integration",
+      "source": "./plugins/ai-integration",
+      "description": "Tool-agnostic workflows for apps that call LLM and image-generation APIs or local models"
+    },
+    {
+      "name": "fastapi",
+      "source": "./plugins/fastapi",
+      "description": "FastAPI-specific techniques: testing, auth, and rate limiting"
+    },
+    {
+      "name": "comfyui",
+      "source": "./plugins/comfyui",
+      "description": "Driving ComfyUI from application code: API workflows, polling, and memory limits"
+    },
+    {
+      "name": "electronics",
+      "source": "./plugins/electronics",
+      "description": "Tool-agnostic workflows for microcontroller, single-board computer, and IoT projects: project layout, device credentials, and device-to-cloud data pipelines"
+    },
+    {
+      "name": "arduino",
+      "source": "./plugins/arduino",
+      "description": "Arduino-specific workflows: Arduino CLI builds, sketch project files, and firmware conventions"
     }
   ]
 }

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "knowledge-server"            # rename with the package
+version = "0.1.0"                    # release-please updates this
+description = "{one-line description}"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "{author}" }]
+dependencies = ["mcp>=1.0.0,<2"]     # pin below the next major: the SDK API can change across majors
+
+[project.scripts]
+knowledge-server = "knowledge_server.server:main"   # the command MCP clients run
+
+[project.urls]
+Repository = "https://github.com/{owner}/{repo}"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/knowledge_server"]
+
+[tool.hatch.build]
+# Without this, the manifest and content files are missing after pip/uvx install
+include = [
+  "src/knowledge_server/**/*.py",
+  "src/knowledge_server/**/*.md",
+  "src/knowledge_server/data/*.json",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"

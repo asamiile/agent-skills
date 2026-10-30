@@ -1,0 +1,8 @@
+{
+  "agent": "claude",
+  "adapters": {
+    "claude": ".loop/adapters/claude-code.sh",
+    "codex": ".loop/adapters/codex.sh"
+  },
+  "goal": ".loop/active-goal.json"
+}

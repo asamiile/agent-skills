@@ -1,0 +1,11 @@
+{
+  "name": "cloud-run",
+  "version": "0.1.0",
+  "description": "Deploying web backends and frontends to Google Cloud Run from GitHub Actions",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["cloud-run", "gcp", "deploy"],
+  "dependencies": ["web-modern"]
+}

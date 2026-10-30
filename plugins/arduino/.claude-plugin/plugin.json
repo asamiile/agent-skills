@@ -1,0 +1,17 @@
+{
+  "name": "arduino",
+  "version": "0.1.0",
+  "description": "Arduino-specific workflows: Arduino CLI builds, sketch project files, and firmware conventions",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "arduino",
+    "arduino-cli",
+    "firmware"
+  ],
+  "dependencies": [
+    "electronics"
+  ]
+}

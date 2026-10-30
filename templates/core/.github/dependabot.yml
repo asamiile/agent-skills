@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /{frontend}
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:              # one PR for routine updates; majors stay separate for review
+        update-types: [minor, patch]
+  - package-ecosystem: pip
+    directory: /{backend}
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      test-tools:
+        patterns: ["pytest*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }

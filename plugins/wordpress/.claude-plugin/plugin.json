@@ -1,0 +1,11 @@
+{
+  "name": "wordpress",
+  "version": "0.1.0",
+  "description": "Workflows for delivering front-end work to be embedded in a WordPress theme",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["wordpress", "web"],
+  "dependencies": ["web-modern"]
+}

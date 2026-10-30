@@ -1,0 +1,10 @@
+{
+  "name": "mcp-server",
+  "version": "0.1.0",
+  "description": "Workflows for building, cataloging, testing, and publishing MCP servers that give AI agents read-only access to knowledge",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["mcp", "agents"]
+}

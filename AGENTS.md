@@ -22,14 +22,38 @@ Knowledge is imported one repository at a time. The import workflow lives in `.c
 | `visual-webgl` | Workflows for WebGL and Canvas visual production |
 | `motion-graphics` | Tool-agnostic workflows for motion graphics and video production |
 | `web-modern` | Framework-agnostic workflows for web development |
+| `web-animation` | Workflows for animation on web pages (fallbacks, visual tests, frame capture, performance) |
+| `generative-art` | Tool-agnostic workflows for generative art and creative coding |
+| `mcp-server` | Workflows for building, cataloging, testing, and publishing MCP servers |
+| `mobile-app` | Tool-agnostic workflows for smartphone apps |
+| `ai-integration` | Tool-agnostic workflows for apps that call LLM and image-generation APIs or local models |
+| `electronics` | Tool-agnostic workflows for microcontroller, single-board computer, and IoT projects |
+
+Per-tool plugins that exist:
+
+| Plugin | Shared plugin |
+| --- | --- |
+| `gsap` | `web-animation` |
+| `wordpress` | `web-modern` |
+| `py5` | `generative-art` |
+| `remotion` | `motion-graphics` |
+| `nextjs` | `web-modern` |
+| `cloud-run` | `web-modern` |
+| `expo` | `mobile-app` |
+| `macos` | `core` |
+| `fastapi` | `web-modern` |
+| `comfyui` | `ai-integration` |
+| `arduino` | `electronics` |
+| `ableton-live` | none yet (add one when a second music-production tool is imported) |
 
 Create a per-tool plugin only when an imported repository yields knowledge for that tool. Do not create empty plugins. Planned per-tool plugins:
 
 | Plugin | Shared plugin |
 | --- | --- |
-| `remotion`, other video tools (for example `after-effects`) | `motion-graphics` |
-| `nextjs`, `nuxt` (frontend) | `web-modern` |
+| Other video tools (for example `after-effects`) | `motion-graphics` |
+| `nuxt` (frontend) | `web-modern` |
 | `django`, a TypeScript backend (name decided when it is created) | `web-modern` |
+| `ollama` and other local model servers (when there is enough to fill a plugin) | `ai-integration` |
 
 - A per-tool plugin lists its shared plugin in the `dependencies` field of its `plugin.json`, so both are installed together
 - Do not create plugins named after a combination of tools (such as `nextjs-django`). A project installs one plugin per tool it uses

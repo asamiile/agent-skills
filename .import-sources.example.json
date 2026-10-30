@@ -1,0 +1,17 @@
+{
+  "clone_root": "~/.cache/agent-skills/sources",
+  "sources": [
+    {
+      "id": "{short-id}",
+      "url": "https://github.com/{owner}/{repository}.git",
+      "branch": "main",
+      "imported_commit": null
+    },
+    {
+      "id": "{short-id}",
+      "path": "{absolute path to an existing local clone}",
+      "branch": "main",
+      "imported_commit": null
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# Opens and updates the release pull request from Conventional Commits on main; merging it tags and publishes the release.
+# Uses a token other than GITHUB_TOKEN: pull requests created with GITHUB_TOKEN do not trigger other workflows (CI).
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v5
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

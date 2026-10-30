@@ -1,0 +1,18 @@
+{
+  "$schema": "./goal.schema.json",
+  "id": "add-example-feature",
+  "objective": "Describe the single outcome this run must reach, in one or two sentences.",
+  "acceptance": [
+    "A concrete, checkable criterion",
+    "Another criterion; every one is required"
+  ],
+  "allowedPaths": ["src/", "tests/"],
+  "forbiddenActions": ["Modify personal *.local.json files", "Delete existing features", "Change unrelated user edits"],
+  "verification": [
+    { "name": "lint", "command": "npm run lint", "timeoutSeconds": 300 },
+    { "name": "tests", "command": "npm test", "timeoutSeconds": 600 },
+    { "name": "whitespace", "command": "git diff --check", "timeoutSeconds": 30 }
+  ],
+  "limits": { "maxAttempts": 6, "maxMinutes": 45, "maxConsecutiveNoProgress": 2 },
+  "humanGates": ["full-render", "delete", "commit", "push", "merge", "publish", "external-write", "dependency-add"]
+}

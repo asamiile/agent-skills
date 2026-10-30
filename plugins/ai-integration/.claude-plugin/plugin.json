@@ -1,0 +1,14 @@
+{
+  "name": "ai-integration",
+  "version": "0.1.0",
+  "description": "Tool-agnostic workflows for apps that call LLM and image-generation APIs or local models",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ai",
+    "llm",
+    "image-generation"
+  ]
+}

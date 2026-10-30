@@ -1,0 +1,10 @@
+{
+  "name": "web-animation",
+  "version": "0.1.0",
+  "description": "Workflows for animation on web pages: fallbacks, visual tests, frame capture, and performance measurement",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["web", "animation"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "ableton-live",
+  "version": "0.1.0",
+  "description": "Ableton Live Remote Scripts (Control Surface scripts) that talk to other apps",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ableton",
+    "remote-script",
+    "music"
+  ]
+}

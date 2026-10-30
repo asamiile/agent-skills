@@ -1,0 +1,17 @@
+{
+  "name": "comfyui",
+  "version": "0.1.0",
+  "description": "Driving ComfyUI from application code: API workflows, polling, and memory limits",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "comfyui",
+    "stable-diffusion",
+    "image-generation"
+  ],
+  "dependencies": [
+    "ai-integration"
+  ]
+}

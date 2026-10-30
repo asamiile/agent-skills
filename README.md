@@ -1,6 +1,6 @@
 # agent-skills
 
-`asamiile`, a Claude Code plugin marketplace of workflows, rules, and lessons learned from visual, motion graphics, and web production work.
+A Claude Code plugin marketplace of workflows, rules, and lessons learned from visual, motion graphics, and web production work.
 
 See [AGENTS.md](AGENTS.md) for the policy and rules. 
 
@@ -14,6 +14,24 @@ claude plugin install core@asamiile
 claude plugin install visual-webgl@asamiile     # install only what you need
 claude plugin install motion-graphics@asamiile
 claude plugin install web-modern@asamiile
+claude plugin install web-animation@asamiile
+claude plugin install gsap@asamiile            # also installs web-animation
+claude plugin install wordpress@asamiile       # also installs web-modern
+claude plugin install generative-art@asamiile
+claude plugin install py5@asamiile             # also installs generative-art
+claude plugin install remotion@asamiile        # also installs motion-graphics
+claude plugin install mcp-server@asamiile
+claude plugin install nextjs@asamiile          # also installs web-modern
+claude plugin install cloud-run@asamiile       # also installs web-modern
+claude plugin install mobile-app@asamiile
+claude plugin install expo@asamiile            # also installs mobile-app
+claude plugin install macos@asamiile           # also installs core
+claude plugin install ableton-live@asamiile
+claude plugin install ai-integration@asamiile
+claude plugin install fastapi@asamiile         # also installs web-modern
+claude plugin install comfyui@asamiile         # also installs ai-integration
+claude plugin install electronics@asamiile
+claude plugin install arduino@asamiile         # also installs electronics
 ```
 
 Inside a session, `/plugin marketplace add asamiile/agent-skills` also adds the marketplace.
@@ -41,12 +59,32 @@ Run a skill with `/<plugin>:<skill>`. Claude may also use a skill on its own whe
 
 | Plugin | Contents | Skills |
 | --- | --- | --- |
-| `core` | Workflows that apply to any kind of project | (none yet) |
-| `visual-webgl` | Workflows for WebGL and Canvas visual production | (none yet) |
-| `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | (none yet) |
-| `web-modern` | Framework-agnostic workflows for web development | (none yet) |
+| `core` | Workflows that apply to any kind of project | `lock-down-confidential-project`, `bounded-agent-loop`, `audit-content-quality`, `proofread-copy`, `auto-fix-from-errors`, `set-up-release-flow`, `distribute-source-template`, `ship-companion-installer`, `watch-platform-updates`, `document-operations`, `sync-bilingual-docs` |
+| `visual-webgl` | Workflows for WebGL and Canvas visual production | `canvas-webgl-performance` |
+| `motion-graphics` | Tool-agnostic workflows for motion graphics and video production | `verify-render-outputs`, `export-for-mobile`, `offload-renders` |
+| `web-modern` | Framework-agnostic workflows for web development | `screen-specs-and-qa`, `verify-production-release`, `publish-content-for-ai`, `change-database-schema`, `track-api-costs`, `harden-local-docker-app` |
+| `web-animation` | Workflows for animation on web pages | `animation-fallbacks`, `visual-regression-test`, `capture-animation-frames`, `measure-animation-performance` |
+| `gsap` | GSAP-specific techniques (depends on `web-animation`) | `animation-tuning-mock` |
+| `wordpress` | Delivering front-end work for a WordPress theme (depends on `web-modern`) | `package-wordpress-embed` |
+| `generative-art` | Tool-agnostic workflows for generative art and creative coding | `autonomous-artwork-loop`, `polish-artwork-from-feedback`, `write-artwork-article` |
+| `py5` | py5-specific techniques (depends on `generative-art`) | `py5-sketch-setup` |
+| `remotion` | Remotion-specific techniques (depends on `motion-graphics`) | `remotion-project-structure`, `remotion-render-pipeline`, `duration-variants` |
+| `mcp-server` | Building, cataloging, testing, and publishing MCP servers | `build-knowledge-mcp-server`, `maintain-agent-manifest`, `publish-python-mcp-server` |
+| `nextjs` | Next.js-specific techniques (depends on `web-modern`) | `proxy-locale-and-auth`, `ai-facing-content-routes`, `proxy-long-backend-requests` |
+| `cloud-run` | Deploying to Google Cloud Run (depends on `web-modern`) | `deploy-to-cloud-run`, `alert-to-discord` |
+| `mobile-app` | Tool-agnostic workflows for smartphone apps | `submit-to-app-store`, `set-up-in-app-purchases`, `connect-to-local-devices`, `migrate-local-storage` |
+| `expo` | Expo and React Native techniques (depends on `mobile-app`) | `expo-release-pipeline`, `expo-development-builds`, `test-react-native-app` |
+| `macos` | macOS signing and notarization (depends on `core`) | `sign-and-notarize-macos` |
+| `ableton-live` | Ableton Live Remote Scripts | `build-remote-script` |
+| `ai-integration` | Apps that call LLM and image-generation APIs or local models | `pluggable-ai-providers`, `two-step-generation`, `safe-prompt-expansion`, `run-local-ai-stack` |
+| `fastapi` | FastAPI-specific techniques (depends on `web-modern`) | `test-fastapi-app`, `protect-fastapi-endpoints` |
+| `comfyui` | Driving ComfyUI from code (depends on `ai-integration`) | `drive-comfyui-from-code` |
+| `electronics` | Microcontroller, single-board computer, and IoT projects | `organize-hardware-projects`, `manage-device-credentials`, `build-device-data-pipeline` |
+| `arduino` | Arduino CLI builds and firmware (depends on `electronics`) | `build-with-arduino-cli` |
 
-Per-tool plugins such as `remotion`, `nextjs`, and `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics` or `web-modern`).
+Starter code and AGENTS.md templates for these skills are in [templates/](templates/).
+
+Per-tool plugins such as `django` are added as knowledge for those tools is imported. Installing a per-tool plugin also installs its shared plugin (`motion-graphics`, `web-modern`, `web-animation`, `generative-art`, `mobile-app`, `ai-integration`, `electronics`, or `core`).
 
 ## Working on this repository
 
@@ -58,6 +96,27 @@ cp .confidential-terms.example .confidential-terms   # list banned terms (never 
 ```
 
 To import knowledge, open Claude Code in this repository and run `/import-knowledge <path-to-source-repository>`.
+
+### Automatic import checks
+
+A weekly local scheduled task in Claude Desktop checks the source repositories for new commits and writes a report of import candidates. It only reports: importing, committing, and pushing stay manual, with the usual confirmations.
+
+**Requirements: the check runs only when both of these are true at the scheduled time**
+
+1. **The computer is on and awake.** A sleeping computer skips the run; closing a laptop lid puts it to sleep. Turn on **Keep computer awake** in Claude Desktop's settings to prevent idle sleep
+2. **The Claude Desktop app is running.** Scheduled tasks are checked by the app; with the app closed, nothing runs
+
+A missed run is caught up once, the next time the app starts or the computer wakes (for runs missed within the last seven days). The notification includes the previous check date, so a long gap is visible. When neither condition held for a while, click **Run now** on the task.
+
+Setup:
+
+1. `cp .import-sources.example.json .import-sources.json` and list the sources (gitignored: it names the source repositories). Client repositories that must not be processed by tools outside the agreed scope stay out of this list and are imported manually
+2. Record the current state of each source once: `scripts/check-sources.py mark <id>`
+3. In Claude Desktop: **Code → Scheduled → New task**, turn on **Only on this computer**, select this repository as the folder, choose **Weekly**, and paste the whole prompt from [.claude/scheduled/import-check.md](.claude/scheduled/import-check.md), including its Rules. Leave **Worktree** off: a worktree contains only tracked files, so the gitignored source list, banned terms, and reports would be missing. The task changes no tracked files, so running in the working folder is safe
+4. Permission mode: **Auto** (the default in the instructions box) suits this task, since it only reads and writes gitignored reports; Auto blocks risky actions such as pushing. With the mode that asks every time instead, click **Run now** once and choose **Always allow** for each command it asks about, so later runs do not stall
+5. For phone notifications: install the Claude app with the same account and allow notifications, turn on **Push when Claude decides** and **Push when actions required** in `/config`, and turn on **Connect new sessions to Remote Control** in Claude Desktop's settings. Confirm with **Run now** that the notification arrives
+
+Reports are written to `.import-reports/` (gitignored). To import from a report, run `/import-knowledge <source>` and follow the incremental steps in the skill.
 
 Validate after every change.
 

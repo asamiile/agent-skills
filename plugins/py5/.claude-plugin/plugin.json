@@ -1,0 +1,11 @@
+{
+  "name": "py5",
+  "version": "0.1.0",
+  "description": "py5-specific techniques for generative stills and animations",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["py5", "processing", "python"],
+  "dependencies": ["generative-art"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "remotion",
+  "version": "0.1.0",
+  "description": "Remotion-specific structure, rendering, and verification techniques",
+  "author": {
+    "name": "asamiile"
+  },
+  "license": "MIT",
+  "keywords": ["remotion", "video"],
+  "dependencies": ["motion-graphics"]
+}
